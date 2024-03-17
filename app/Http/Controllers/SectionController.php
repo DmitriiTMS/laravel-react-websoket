@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Section\StoreRequest;
 use App\Http\Requests\Section\UpdateRequest;
+use App\Http\Resources\Branch\BranchResource;
 use App\Models\Section;
 
 class SectionController extends Controller
@@ -50,5 +51,10 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         //
+    }
+
+    public function branchIndex(Section $section) {
+        // dd(BranchResource::collection($section->branches)->resolve());
+        return BranchResource::collection($section->branches)->resolve();
     }
 }

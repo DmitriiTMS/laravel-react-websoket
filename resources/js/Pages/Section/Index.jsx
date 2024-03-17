@@ -9,13 +9,15 @@ export default function Index() {
                     <h3 className=" text-xl mr-4">Разделы</h3>
                     <Link
                         href={route("sections.create")}
-                        className="block px-2 py-1  bg-white border border-gray-300 rounded-lg text-center mr-4"
+                        className="block px-2 py-1 bg-white border border-gray-300 rounded-lg text-center mr-4
+                        hover:bg-sky-700 hover:text-white"
                     >
                         + Разделы
                     </Link>
                     <Link
                         href={route("branches.create")}
-                        className="block px-2 py-1  bg-white border border-gray-300 rounded-lg text-center"
+                        className="block px-2 py-1  bg-white border border-gray-300 rounded-lg text-center
+                        hover:bg-sky-700 hover:text-white"
                     >
                         + Ветки
                     </Link>

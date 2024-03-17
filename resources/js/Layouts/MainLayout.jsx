@@ -5,7 +5,7 @@ export default function MainLayout({children}) {
         <div>
             <div className="bg-white border-b border-gray-300 py-4">
                 <div className='w-1/2 mx-auto'>
-                    <Link href={route('sections.index')}>Форум</Link>
+                    <Link href={route('sections.index')} className='hover:text-cyan-400'>Форум</Link>
                 </div>
             </div>
             <div className='w-1/2 mx-auto py-4'>

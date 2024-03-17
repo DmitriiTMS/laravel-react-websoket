@@ -10,4 +10,9 @@ class Section extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function branches()
+    {
+        return $this->hasMany(Branch::class, "section_id","id");
+    }
 }

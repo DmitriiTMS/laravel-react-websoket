@@ -3,10 +3,12 @@ import { router } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
 
 export default function Index() {
-    const [isValid, setIsValid] = useState(false);
+
     const [values, setValues] = useState({
         title: "",
     });
+    const [isValid, setIsValid] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     function handleChange(e) {
         const key = e.target.name;
@@ -18,16 +20,22 @@ export default function Index() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/sections", values);
+        if (isValid) {
+            setIsError(false)
+            router.post("/sections", values);
+        } else {
+            setIsError(true)
+        }
     }
 
     useEffect(() => {
-        if(values.title) {
-            setIsValid(true)
+        if (values.title) {
+            setIsValid(true);
+            setIsError(false)
         } else {
-            setIsValid(false)
+            setIsValid(false);
         }
-    },[values.title])
+    }, [values.title]);
 
     return (
         <MainLayout>
@@ -45,11 +53,11 @@ export default function Index() {
                             value={values.title}
                             name="title"
                         />
+                        {isError ? <p className="text-red-500 text-xs">Заполните поле</p> : null}
                     </div>
                     <button
-                        className={`my-4 w-1/4 ${isValid ? 'bg-sky-500 border' : 'bg-slate-400'} border-none text-white text-center `}
+                        className="my-4 w-1/4 bg-sky-500 borderborder-none text-white text-center"
                         type="submit"
-                        disabled={isValid ? false : true}
                     >
                         Добавить
                     </button>
