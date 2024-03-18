@@ -27,4 +27,12 @@ class StoreRequest extends FormRequest
             'parent_id' => 'nullable|integer|exists:branches,id',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Поле title обязательно для заполнения',
+            'section_id'=> 'Поле section_id обязательно для заполнения',
+        ];
+    }
 }

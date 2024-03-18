@@ -3,11 +3,11 @@ import { router } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
 import axios from "axios";
 
-export default function Index({ sections }) {
+export default function Index({ sections, errors }) {
     const [values, setValues] = useState({
         title: "",
         section_id: "Выберите раздел",
-        parent_id: null
+        parent_id: null,
     });
     const [branches, setBranches] = useState([]);
 
@@ -21,7 +21,6 @@ export default function Index({ sections }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(values);
         router.post("/branches", values);
     }
 
@@ -50,12 +49,12 @@ export default function Index({ sections }) {
                     <h3 className=" text-xl mr-4">Добавить ветку</h3>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className="mb-5">
                         <select
                             name="section_id"
                             onChange={handleChange}
                             value={values.section_id}
-                            className="mb-5 cursor-pointer border-gray-300 w-1/4"
+                            className="cursor-pointer border-gray-300 w-1/4"
                         >
                             <option value="Выберите раздел" disabled>
                                 Выберите раздел
@@ -68,6 +67,13 @@ export default function Index({ sections }) {
                                 );
                             })}
                         </select>
+                        <div>
+                            {errors.section_id && (
+                                <span className="text-red-500 text-xs">
+                                    {errors.section_id}
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     {branches.length > 0 && (
@@ -75,13 +81,14 @@ export default function Index({ sections }) {
                             <select
                                 name="parent_id"
                                 onChange={handleChange}
-                                value={values.parent_id === null ? 'Выберите род. ветку' : ''}
+                                value={
+                                    values.parent_id === null
+                                        ? "Выберите род. ветку"
+                                        : ""
+                                }
                                 className="mb-5 cursor-pointer border-gray-300 w-1/4"
                             >
-                                <option
-                                    value="Выберите род. ветку"
-                                    disabled
-                                >
+                                <option value="Выберите род. ветку" disabled>
                                     Выберите род. ветку
                                 </option>
                                 {branches &&
@@ -108,6 +115,13 @@ export default function Index({ sections }) {
                             value={values.title}
                             name="title"
                         />
+                    </div>
+                    <div>
+                        {errors.title && (
+                            <span className="text-red-500 text-xs">
+                                {errors.title}
+                            </span>
+                        )}
                     </div>
                     <button
                         className="my-4 w-1/4 bg-sky-500 border border-sky-600 text-white text-center"
